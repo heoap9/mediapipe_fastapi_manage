@@ -39,4 +39,4 @@ async def root():
 ```
 
 ### 저장된 파일 목록 표시
-![filelist (1)](https://github.com/heoap9/mediapipe_fastapi_manage/assets/83992590/8672a2e0-33a4-4bfd-86e3-
+![filelist (1)](https://github.com/heoap9/mediapipe_fastapi_manage/assets/83992590/8672a2e0-33a4-4bfd-86e3-0c5d2ec17476)
