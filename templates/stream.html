@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>Webcam Streaming</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Webcam Live Streaming</h1>
+    <img id="video" width="1280" height="720">
+    <h2 id="alert">대기 중...</h2>
+    <script>
+    var video = document.getElementById('video');
+    var alert = document.getElementById('alert');
+    var ws = new WebSocket('ws://localhost:8000/ws');
+    ws.onmessage = function(event) {
+        var data = JSON.parse(event.data);
+        var blob = data.image;
+        blob = atob(blob)
+        var bytes = new Uint8Array(blob.length);
+        for (var i = 0; i < blob.length; i++) {
+          bytes[i] = blob.charCodeAt(i);
+        }
+        var blob = new Blob([bytes.buffer], { type: 'image/jpeg' });
+        var url = URL.createObjectURL(blob);
+        video.src = url;
+
+        // 디텍션 결과에 따라 알림 메시지 업데이트
+        if (data.detection.includes('person')) {
+            alert.textContent = '사람이 감지되었습니다!';
+            alert.style.color = 'red';
+        } else {
+            alert.textContent = '감지된 사람이 없습니다.';
+            alert.style.color = 'green';
+        }
+    };
+
+
+// 데이터 전송을 재개하려면 'resume' 메시지를 보내면 됩니다.
+
+    </script>
+</body>
+</html>

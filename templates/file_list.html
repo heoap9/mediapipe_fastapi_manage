@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>File List</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>File List</h1>
+    <ul>
+        {% for file in files %}
+        <li>
+            <a href="/download_file/{{ file.filename }}">{{ file.filename }}</a>
+            <p>날짜: {{ file.date }}</p>
+            <p>시간: {{ file.time }}</p>
+            <p>영상 시간: {{ file.duration }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

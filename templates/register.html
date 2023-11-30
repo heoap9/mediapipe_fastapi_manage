@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>회원가입</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+        }
+        .register-form {
+            width: 300px;
+        }
+        .register-form input[type="text"], .register-form input[type="password"] {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-form">
+        <h2 class="text-center">회원가입</h2>
+        <form action="/register" method="post" onsubmit="submitForm(event)">
+            <input type="text" name="id" class="form-control" placeholder="Username" required>
+            <input type="password" name="pwd" class="form-control" placeholder="Password" required>
+            <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+        <button onclick="location.href='/login'" class="btn btn-secondary btn-block">Cancel</button>
+    </div>
+
+    <script>
+        async function submitForm(event) {
+            event.preventDefault();
+            const form = event.target;
+            const data = new FormData(form);
+            const response = await fetch(form.action, { method: 'POST', body: data });
+            if (!response.ok) {
+                const message = await response.text();
+                alert(message);
+            } else {
+                location.href = '/login';
+            }
+        }
+
+    </script>
+</body>
+</html>
